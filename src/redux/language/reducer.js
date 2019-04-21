@@ -5,7 +5,7 @@ const localLang = localStorage.getItem(KEY_LANG);
 if (!localLang || !LANGS.includes(localLang)) localStorage.setItem(KEY_LANG, LANGS[0]);
 
 const initialState = {
-  lang: localStorage.getItem(KEY_LANG),
+  lang: localStorage.getItem(KEY_LANG) || LANGS[0],
 };
 
 export default (state = initialState, action) => {

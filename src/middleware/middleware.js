@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { TOKEN_INVALID, TOKEN_EXPIRE, KEY_LANG, URL_AUTH, URL_HOME } from '../core/config';
+import { TOKEN_INVALID, TOKEN_EXPIRE, URL_AUTH, URL_HOME } from '../core/config';
 import history from '../core/history';
 import { GET_ACCESS_TOKEN_SUCCESS, REMOVE_ACCESS_TOKEN, removeTokenUser } from '../redux/auth/actions';
 import { translateMessages as t } from '../i18n/i18n';
@@ -34,13 +34,13 @@ const authToken = store => next => (action) => {
   next(action);
 };
 
-const redirectUrl = () => next => (action) => {
+const redirectUrl = store => next => (action) => {
   switch (action.type) {
     case GET_ACCESS_TOKEN_SUCCESS:
-      history.push(`/${localStorage.getItem(KEY_LANG)}${URL_HOME}`);
+      history.push(`/${store.getState().language.lang}${URL_HOME}`);
       break;
     case REMOVE_ACCESS_TOKEN:
-      history.push(`/${localStorage.getItem(KEY_LANG)}${URL_AUTH}`);
+      history.push(`/${store.getState().language.lang}${URL_AUTH}`);
       break;
 
     default:

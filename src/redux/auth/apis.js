@@ -1,11 +1,11 @@
 import axios from 'axios';
-// import { HEADERS_AUTH, KEY_ACCESS_TOKEN } from '../../core/config';
+// import { HEADERS_AUTH } from '../../core/config';
 
-const apiGetTokenUser = ({ username, password }) => axios({
+const apiGetTokenUser = ({ accessToken, username, password }) => axios({
   method: 'post',
   url: 'http://13.231.201.125:9999/api/jwt',
   headers: {
-    // [HEADERS_AUTH]: localStorage.getItem(KEY_ACCESS_TOKEN),
+    // [HEADERS_AUTH]: accessToken,
   },
   data: { username, password },
 });

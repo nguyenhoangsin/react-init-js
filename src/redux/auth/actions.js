@@ -6,9 +6,11 @@ const GET_ACCESS_TOKEN_SUCCESS = 'GET_ACCESS_TOKEN_SUCCESS';
 const REMOVE_ACCESS_TOKEN = 'REMOVE_ACCESS_TOKEN';
 const AUTH_PROTECT_ROUTES = 'AUTH_PROTECT_ROUTES';
 
-const getTokenUser = ({ username, password }) => (dispatch) => {
+const getTokenUser = ({ username, password }) => (dispatch, getState) => {
   dispatch({ type: GET_ACCESS_TOKEN_REQUEST });
-  apiGetTokenUser({ username, password })
+
+  const { auth: { accessToken } } = getState();
+  apiGetTokenUser({ accessToken, username, password })
     .then((res) => {
       console.log('res', res);
       dispatch({ type: GET_ACCESS_TOKEN_SUCCESS, token: res.data.token });

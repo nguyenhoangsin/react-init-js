@@ -1,11 +1,13 @@
 import axios from 'axios';
-import { getDataToken } from './utils';
+import store from '../redux/store';
 import {
   NETWORK_ERROR,
   TOKEN_INVALID,
   TOKEN_EXPIRE,
   HEADERS_AUTH,
 } from './config';
+
+const { auth: { dataToken } } = store.getState();
 
 /**
  * Axios
@@ -17,8 +19,6 @@ const axiosIntercept = () => {
       config.headers,
       HEADERS_AUTH,
     )) {
-      const token = config.headers[HEADERS_AUTH];
-      const dataToken = getDataToken(token);
       if (!dataToken) {
         const status = { response: { data: { statusText: TOKEN_INVALID } } };
         return Promise.reject(status);
@@ -61,8 +61,6 @@ const checkToken = (url, config, resolve, reject) => {
     config.headers,
     HEADERS_AUTH,
   )) {
-    const token = config.headers[HEADERS_AUTH];
-    const dataToken = getDataToken(token);
     // Handle token error
     if (!dataToken) {
       reject({ statusText: TOKEN_INVALID });

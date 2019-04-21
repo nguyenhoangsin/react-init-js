@@ -1,10 +1,18 @@
 import React from 'react';
+import { string } from 'prop-types';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { KEY_LANG, URL_HOME } from '../../core/config';
+import { URL_HOME } from '../../core/config';
 
-function Empty() {
+function Empty({ lang }) {
   console.log('Empty');
-  return <Redirect push to={`/${localStorage.getItem(KEY_LANG)}${URL_HOME}`} />;
+  return <Redirect push to={`/${lang}${URL_HOME}`} />;
 }
 
-export default Empty;
+Empty.propTypes = {
+  lang: string,
+};
+
+const mapState = state => ({ lang: state.language.lang });
+
+export default connect(mapState)(Empty);

@@ -4,7 +4,7 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import { matchPath } from 'react-router-dom';
 import store from '../redux/store';
 import history from '../core/history';
-import { LANGS, KEY_LANG } from '../core/config';
+import { LANGS } from '../core/config';
 import messages from './messages';
 import { changeLanguage } from '../redux/language/actions';
 
@@ -35,7 +35,7 @@ const translateMessages = (key) => {
 
 const mountLang = () => {
   const langUrl = matchPath(history.location.pathname, '/:lang?').params.lang;
-  const langLocal = localStorage.getItem(KEY_LANG);
+  const langLocal = store.getState().language.lang;
 
   if (langUrl !== langLocal) {
     if (langUrl === undefined) {
